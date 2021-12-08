@@ -155,11 +155,12 @@ for i_episode in range(max_num_of_episodes):
         # print("observation", observation)
 
         # Sean: per-episode energy metrics
-        ep_action += info['action']
-        ep_action_abs += np.abs(info['action'])
+        ep_action += action
+        ep_action_abs += np.abs(action)
         # Scaled mass to 0.01 to keep numbers small
-        ep_KE_x += 0.5 * info['vel'].x ** 2 * 0.01
-        ep_KE_y += 0.5 * info['vel'].y ** 2 * 0.01
+        if 'vel' in info.keys():
+            ep_KE_x += 0.5 * info['vel'].x ** 2 * 0.01
+            ep_KE_y += 0.5 * info['vel'].y ** 2 * 0.01
 
         # Accumulate reward
         r += reward
